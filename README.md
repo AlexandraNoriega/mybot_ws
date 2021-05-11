@@ -14,7 +14,7 @@ Now go to the created workspace and compile it.
 ~/mybot_ws$ catkin_make
 ``
 
-How is a new workspace remember put the direction devel to search path
+As it is a new workspace remember put the direction devel to search path
 
 ``
 echo "source ~/mybot_ws/devel/setup.bash" >> ~/.bashrc
