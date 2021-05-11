@@ -56,7 +56,7 @@ When you finish touring the map, we proceed to save it. Remember change the <arc
 rosrun map_server map_saver -f ~/mybot_ws/src/mybot_navigation/maps/<archive_name>
 ``
 
-Kill all the terminals. Is necessary to edit the map_file in the sixth line so go to mybot_navigation/launch/amcl_demo.launch and modify the path changing for the choosen in the previous step
+Kill all the terminals. Is necessary to edit the map_file in the sixth line for load the map in the SLAM similation so go to mybot_navigation/launch/amcl_demo.launch and modify the path changing for the choosen in the previous step
 
 **SLAM**
 
@@ -71,3 +71,26 @@ Load the created map.
 ``
 roslaunch mybot_navigation amcl_demo.launch 
 ``
+
+As execution steps, we are going to visualize the map with rviz and this program will help us to interact with robot movement
+
+``
+roslaunch mybot_description mybot_rviz_amcl.launch
+``
+
+Now you can you can distribute the screen between the gazebo and rviz to better visualize the movement and interaction with the map. At top of rviz we see some options like "Interact", "Move camera", "Select", ... , "2D Nav Goal", select the last mentioned and place the mouse at the position where you want the robot to move, hold the click there and direct the arrow so that the robot is looking in that direction
+
+**Personalize**
+
+If you want to change the world, you can:
+
+-Use a gazebo world installed 
+-Use a gazebo world owned
+
+If you choose the second note that you need one file <world_name>.world and one file <world_name>.launch and a third one (model folder) ir the world has models not included at gazebo. You need to copy that file in the following paths
+
+- .world -> opt/ros/kinetic/share/gazebo_ros/launch
+- .launch -> usr/share/gazebo-7/worlds
+- models -> .gazebo/models
+
+By last in mybot_gazebo/launch/mybot_world.launch in the 14th line (world_name) replace value="worlds/willowgarage.world" to value="worlds/<world_name>.world"
