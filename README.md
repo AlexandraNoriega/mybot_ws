@@ -2,19 +2,19 @@
 
 **Installation**
 
-This repository represents a workspace for that reason you should clone the repository in home.
+This repository represents a workspace. For that reason you should clone the repository in home.
 
 ``
 git clone https://github.com/AlexandraNoriega/mybot_ws.git
 ``
 
-Now go to the created workspace and compile it.
+Now go to the new workspace and compile it.
 
 ``
 ~/mybot_ws$ catkin_make
 ``
 
-As it is a new workspace remember put the direction devel to search path
+As it is a new workspace, remember to put on the bash file the direction of devel folder
 
 ``
 echo "source ~/mybot_ws/devel/setup.bash" >> ~/.bashrc
@@ -32,13 +32,13 @@ Second, run the following lines each in a different terminal
 roslaunch mybot_gazebo mybot_world.launch 
 ``
 
-To start mapping run, this line will save the sensor data located in the robot, in this case the robot use *Hokuyo laser* 
+To start mapping we will execute a launch file. This line will save the sensor data located in the robot, in this case the robot uses a *Hokuyo laser* 
 
 ``
 roslaunch mybot_navigation gmapping_demo.launch
 ``
 
-Open rviz to watch the progress of map creation
+Open rviz to verify the progress of map creation
 
 ``
 roslaunch mybot_description mybot_rviz_gmapping.launch
@@ -50,7 +50,7 @@ Now link from launch the teleop_keyboard code of Turtlebot to move the robot thr
 roslaunch mybot_navigation mybot_teleop.launch
 ``
 
-When you finish touring the map, we proceed to save it. Remember change the <archive_name> each mapping so as not to overwrite
+When you finish touring the map, we proceed to save it. Remember change the <archive_name> each mapping to not overwrite files
 
 ``
 rosrun map_server map_saver -f ~/mybot_ws/src/mybot_navigation/maps/<archive_name>
