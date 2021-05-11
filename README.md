@@ -11,10 +11,7 @@ git clone https://github.com/AlexandraNoriega/mybot_ws.git
 Now go to the created workspace and compile it.
 
 ``
-cd mybot_ws
-``
-``
-catkin_make
+~/mybot_ws$ catkin_make
 ``
 
 How is a new workspace remember put the direction devel to search path
@@ -59,6 +56,18 @@ When you finish touring the map, we proceed to save it. Remember change the <arc
 rosrun map_server map_saver -f ~/mybot_ws/src/mybot_navigation/maps/<archive_name>
 ``
 
-Kill all the terminals.
+Kill all the terminals. Is necessary to edit the map_file in the sixth line so go to mybot_navigation/launch/amcl_demo.launch and modify the path changing for the choosen in the previous step
 
 **SLAM**
+
+Run gazebo for looking the robot at the selected world
+
+``
+roslaunch mybot_gazebo mybot_world.launch 
+``
+
+Load the created map.
+
+``
+roslaunch mybot_navigation amcl_demo.launch 
+``
