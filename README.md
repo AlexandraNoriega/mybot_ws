@@ -20,6 +20,13 @@ As it is a new workspace, remember to put on the bash file the direction of deve
 echo "source ~/mybot_ws/devel/setup.bash" >> ~/.bashrc
 ``
 
+**Package Explanation**
+
+1. **mybot_description:** specifies the entire robot structure as links and joints and can launch the model in rviz.
+2. **mybot_gazebo:** launches the model in the gazebo environment and contains different simulation worlds.
+3. **mybot_navigation** launches the gmapping used to SLAM, control the robot movement with teleop keyboard and load the map obtained by gmapping at simulation enviroment. Besides contains the saved map (.pgm and .yaml)
+4. **turtlebot:** contains files to launch the mybot_navigation/launch/mybot_teleop.launch
+
 **Execution**
 
 First, run roscore like a pre-requisites of a ROS-based system.
