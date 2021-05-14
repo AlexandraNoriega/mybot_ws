@@ -1,4 +1,6 @@
 # Line Follower TurtleBot
+
+Repository used: https://github.com/sudrag/line_follower_turtlebot.git
 [![Build Status](https://travis-ci.org/sudrag/line_follower_turtlebot.svg?branch=master)](https://travis-ci.org/sudrag/line_follower_turtlebot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Coverage Status](https://coveralls.io/repos/github/sudrag/line_follower_turtlebot/badge.svg?branch=master)](https://coveralls.io/github/sudrag/line_follower_turtlebot?branch=master)
@@ -21,23 +23,6 @@ The output from the turtlebot camera can be seen below. The image processing is 
 * std_msgs package
 * message_generation package
 * OpenCV
-
-## To build
-To build the project run the following steps in a terminal:
-* Creating a catkin workspace:
-```
-mkdir catkin_ws
-cd catkin_ws
-mkdir src
-catkin_make
-```
-* Cloning the repository and building:
-```
-cd ~/catkin_ws/src
-git clone https://github.com/sudrag/line_follower_turtlebot.git
-cd ..
-catkin_make
-```
 
 ## To run
 To run the project and see the output in the gazebo world , execute the following steps:
