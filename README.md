@@ -22,6 +22,7 @@ echo "source ~/mybot_ws/devel/setup.bash" >> ~/.bashrc
 
 **Package Explanation**
 
+- **line_follower:** contains codes to simulate a line follower, mybot will map the enviroment while is following the line
 - **mybot_description:** specifies the entire robot structure as links and joints and launches the model in rviz.
 - **mybot_gazebo:** launches the model in the gazebo environment and contains different simulation worlds.
 - **mybot_navigation** launches the gmapping used for SLAM, control the robot movement with teleop keyboard and load the map obtained by gmapping on simulation enviroment. Besides contains the saved maps (.pgm and .yaml)
@@ -38,8 +39,13 @@ Second, run the following lines each in a different terminal
 ``
 roslaunch mybot_gazebo mybot_world.launch 
 ``
+You can map the enviroment making mybot to follow the yellow line (the world you simulate must have a yellow line (lfm1.world)) or using teleop. In the first case run
 
-To start mapping we will execute a launch file. This line will save the sensor data located in the robot, in this case the robot uses a *Hokuyo laser* 
+``
+roslaunch mybot_navigation gmapping_demo_line.launch
+``
+
+To start mapping using teleop we will execute a launch file. This line will save the sensor data located in the robot, in this case the robot uses a *Hokuyo laser* 
 
 ``
 roslaunch mybot_navigation gmapping_demo.launch
