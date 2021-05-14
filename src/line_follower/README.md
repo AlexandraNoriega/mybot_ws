@@ -44,7 +44,7 @@ To run the project and see the output in the gazebo world , execute the followin
 ```
 cd ~/catkin_ws
 source devel/setup.bash
-roslaunch line_follower_turtlebot lf.launch
+roslaunch line_follower lf.launch
 ```
 
 The output generated will be launched in gazebo with one image viewer window similar to this:
@@ -71,18 +71,6 @@ The entire project has been demonstrated using a video and a presenation which c
 [Project slides](https://docs.google.com/presentation/d/11z-mdd0ryByFo7QvxdRwzsLcfOYla6HGPNmMSVBkpIM/edit?usp=sharing)    
 [Demonstration video](https://www.youtube.com/watch?v=n7LSSjZyFvE&feature=youtu.be)
 
-
-## Testing
-To run the gtest based unit tests for the classes in the project , run the following commands:
-
-```
-cd ~/catkin_ws
-cp -R ~/catkin_ws/src/line_follower_turtlebot/test_images/ ~/catkin_ws/devel/lib/line_follower_turtlebot/
-source devel/setup.bash
-catkin_make run_tests
-```
-There are 10 unit tests overall which should all pass when you follow the commands mentioned above
-
 ### Testing code coverage
 
 Due to issues with getting coveralls working for this project, a section has been added discussing the code coverage of the tests and how to generate the lcov files to view the percentage of the code covered.
@@ -105,7 +93,7 @@ If the coverage.info shows a lesser coverage it is due to the fact that some fol
 ## Doxygen Documentation
 To generate Doxygen Documentation in HTML and LaTEX, execute the following steps:
 ```
-cd ~/catkin_ws/src/line_follower_turtlebot
+cd ~/catkin_ws/src/line_follower
 mkdir <documentation_folder>
 cd <documentation_folder>
 doxygen -g <config_file_name>
@@ -130,7 +118,7 @@ The Doxygen files for this project have already been generated and can be viewed
 ```
 cd ~/catkin_ws
 source devel/setup.bash
-roslaunch line_follower_turtlebot lf.launch StartRec:=true
+roslaunch line_follower lf.launch StartRec:=true
 ```
 
 This creates a bag file called *BagFile.bag* in the *.ros* folder. To view the file:
@@ -139,15 +127,7 @@ This creates a bag file called *BagFile.bag* in the *.ros* folder. To view the f
 cd ~/.ros
 rosbag info BagFile.bag
 ```
-This displays the information about the bag file and looks like:
-
-![alt text](Results/readme_images/bag.png "Bag File Info")
-
-This repository contains a sample bag file that is 5 seconds long in the `Results` folder. To view the info of the bag file , type these steps in a terminal :
-```
-cd ~/catkin_ws/src/line_follower_turtlebot/Results
-rosbag info Bagfile.bag
-```
+This displays the information about the bag file 
 
 ## Solo-Iterative Processes
 This project was designed and developed using the SIP process. Tasks were organized after being identified and split up. The Product backlog,Iteration backlog , Time log and Defect log were recorded for each task and can be viewed in the link below:   
