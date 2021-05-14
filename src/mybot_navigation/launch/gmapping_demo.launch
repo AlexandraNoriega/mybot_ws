@@ -20,15 +20,4 @@
 
   </node>
 
-   <!-- Detection node -->
-  <node pkg="line_follower" name="detection" type="detect" cwd="node" output="screen">
-  <remap from="/camera/rgb/image_raw" to="/mybot/camera1/image_raw"/> <!--input to detect from turtlebot camera now from mybot camera-->
-  </node>
-
-   <!-- Robot commands node -->
-  <node pkg="line_follower" name="Velocity" type="navig" cwd="node" output="screen">
-  <remap from="/cmd_vel_mux/input/teleop" to="cmd_vel"/> <!--output movement for turtlebot now for mybot-->
-  </node>
-
-
 </launch>
