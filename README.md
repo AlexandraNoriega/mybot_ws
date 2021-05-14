@@ -39,6 +39,7 @@ Second, run the following lines each in a different terminal
 ``
 roslaunch mybot_gazebo mybot_world.launch 
 ``
+
 You can map the enviroment making mybot to follow the yellow line (the world you simulate must have a yellow line (lfm1.world)) or using teleop. In the first case run
 
 ``
