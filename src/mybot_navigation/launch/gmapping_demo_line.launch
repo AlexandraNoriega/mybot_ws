@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="true"/>
+  <!--- Run gmapping -->
+  <node pkg="gmapping" name="slam_gmapping" type="slam_gmapping" output="screen">
+    <param name="delta" value="0.01"/>
+    <param name="xmin" value="-20"/>
+    <param name="xmax" value="20"/>
+    <param name="ymin" value="-20"/>
+    <param name="ymax" value="20"/>
+    <remap from="scan" to="mybot/laser/scan"/>
+    <param name="base_frame" value="chassis" />
+
+    <param name="linearUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.436"/>
+    <param name="temporalUpdate" value="-1.0"/>
+    <param name="resampleThreshold" value="0.5"/>
+    <param name="particles" value="80"/>
+
+  </node>
+
+   <!-- Detection node -->
+  <node pkg="line_follower" name="detection" type="detect" cwd="node" output="screen">
+  <remap from="/camera/rgb/image_raw" to="/mybot/camera1/image_raw"/> <!--input to detect from turtlebot camera now from mybot camera-->
+  </node>
+
+   <!-- Robot commands node -->
+  <node pkg="line_follower" name="Velocity" type="navig" cwd="node" output="screen">
+  <remap from="/cmd_vel_mux/input/teleop" to="cmd_vel"/> <!--output movement for turtlebot now for mybot-->
+  </node>
+
+
+</launch>
