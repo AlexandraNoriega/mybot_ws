@@ -30,66 +30,67 @@ echo "source ~/mybot_ws/devel/setup.bash" >> ~/.bashrc
 
 **Execution**
 
-First, run roscore like a pre-requisites of a ROS-based system.
+1. Run roscore like a pre-requisites of a ROS-based system.
 
-Second, run the following lines each in a different terminal
+*Run the following lines each in a different terminal*
 
-- We're going to open gazebo with the load world and robot
+2. We're going to open gazebo with the load world and robot
 
 ``
 roslaunch mybot_gazebo mybot_world.launch 
 ``
 
-You can map the enviroment making mybot to follow the yellow line (the world you simulate must have a yellow line (lfm1.world)) or using teleop. In the first case run
+3.O. You can map the enviroment making mybot to follow the yellow line (the world you simulate must have a yellow line (lfm1.world)) or using teleop. In the first case run
 
 ``
 roslaunch mybot_navigation gmapping_demo_line.launch
 ``
 
-To start mapping using teleop we will execute a launch file. This line will save the sensor data located in the robot, in this case the robot uses a *Hokuyo laser* 
+3. To start mapping using teleop we will execute a launch file. This line will save the sensor data located in the robot, in this case the robot uses a *Hokuyo laser* 
 
 ``
 roslaunch mybot_navigation gmapping_demo.launch
 ``
 
-Open rviz to verify the progress of map creation
+4. Open rviz to verify the progress of map creation
 
 ``
 roslaunch mybot_description mybot_rviz_gmapping.launch
 ``
 
-Now link from launch the teleop_keyboard code of Turtlebot to move the robot through the world
+5. Now link from launch the teleop_keyboard code of Turtlebot to move the robot through the world
 
 ``
 roslaunch mybot_navigation mybot_teleop.launch
 ``
 
-When you finish touring the map, we proceed to save it. Remember to change the <archive_name> each mapping to not overwrite files
+6. When you finish touring the map, we proceed to save it. Remember to change the <archive_name> each mapping to not overwrite files
 
 ``
 rosrun map_server map_saver -f ~/mybot_ws/src/mybot_navigation/maps/<archive_name>
 ``
 
-Once the map has been saved we can open it following the next steps:
-
-1. Kill all active processes. 
-2. Edit the map_file. You might open **mybot_navigation/launch/amcl_demo.launch**, get on the sixth line and modify the path changing it for that one choosen in the previous step.
+The SLAM section describes how the saved map can be used. 
 
 **SLAM**
 
-Run gazebo for looking the robot at the selected world
+We can open the saved maps following the next steps:
+
+1. Kill all active processes.
+2. Edit the map_file. You might open **mybot_navigation/launch/amcl_demo.launch**, get on the sixth line and modify the path changing it for that one choosen in the previous step.
+4. Run gazebo for looking the robot at the selected world
 
 ``
 roslaunch mybot_gazebo mybot_world.launch 
 ``
 
-Load the created map.
+5. Load the created map.
 
 ``
 roslaunch mybot_navigation amcl_demo.launch 
 ``
 
-As execution steps, we are going to visualize the map with rviz and this program will help us to interact with robot movement
+6. As execution steps, we are going to visualize the map with rviz and this program will help us to interact with robot movement
 
 ``
 roslaunch mybot_description mybot_rviz_amcl.launch
