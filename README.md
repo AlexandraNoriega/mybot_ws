@@ -25,7 +25,7 @@ echo "source ~/mybot_ws/devel/setup.bash" >> ~/.bashrc
 - **line_follower:** contains codes to simulate a line follower, mybot will map the enviroment while is following the line
 - **mybot_description:** specifies the entire robot structure as links and joints and launches the model in rviz.
 - **mybot_gazebo:** launches the model in the gazebo environment and contains different simulation worlds.
-- **mybot_navigation** launches the gmapping used for SLAM, control the robot movement with teleop keyboard and load the map obtained by gmapping on simulation enviroment. Besides contains the saved maps (.pgm and .yaml)
+- **mybot_navigation:** launches the gmapping used for SLAM, control the robot movement with teleop keyboard and load the map obtained by gmapping on simulation enviroment. Besides contains the saved maps (.pgm and .yaml)
 - **turtlebot:** contains files to launch the teleop spec
 
 **Execution**
@@ -64,13 +64,16 @@ Now link from launch the teleop_keyboard code of Turtlebot to move the robot thr
 roslaunch mybot_navigation mybot_teleop.launch
 ``
 
-When you finish touring the map, we proceed to save it. Remember change the <archive_name> each mapping to not overwrite files
+When you finish touring the map, we proceed to save it. Remember to change the <archive_name> each mapping to not overwrite files
 
 ``
 rosrun map_server map_saver -f ~/mybot_ws/src/mybot_navigation/maps/<archive_name>
 ``
 
-Kill all the terminals. Is necessary to edit the map_file in the sixth line for load the map in the SLAM similation so go to mybot_navigation/launch/amcl_demo.launch and modify the path changing for the choosen in the previous step
+Once the map has been saved we can open it following the next steps:
+
+1. Kill all active processes. 
+2. Edit the map_file. You might open **mybot_navigation/launch/amcl_demo.launch**, get on the sixth line and modify the path changing it for that one choosen in the previous step.
 
 **SLAM**
 
@@ -92,7 +95,7 @@ As execution steps, we are going to visualize the map with rviz and this program
 roslaunch mybot_description mybot_rviz_amcl.launch
 ``
 
-Now you can you can distribute the screen between the gazebo and rviz to better visualize the movement and interaction with the map. At top of rviz we see some options like "Interact", "Move camera", "Select", ... , "2D Nav Goal", select the last mentioned and place the mouse at the position where you want the robot to move, hold the click there and direct the arrow so that the robot is looking in that direction
+Now you can distribute the screen between the gazebo and rviz to improve the visualization of the movement and interaction with the map. At top of rviz we see some options like "Interact", "Move camera", "Select", ... , "2D Nav Goal", select the last one and click the place where you want the robot to go, with sustained click you can change the robot orientation.
 
 **Personalize**
 
@@ -107,4 +110,4 @@ If you choose the second note that you need one file <world_name>.world and one 
 - .launch -> usr/share/gazebo-7/worlds
 - models -> .gazebo/models
 
-By last in mybot_gazebo/launch/mybot_world.launch in the 14th line (world_name) replace value="worlds/willowgarage.world" to value="worlds/<world_name>.world"
+Finally in mybot_gazebo/launch/mybot_world.launch in the 14th line (world_name) replace value="worlds/willowgarage.world" to value="worlds/<world_name>.world"
