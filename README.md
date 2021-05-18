@@ -40,13 +40,15 @@ echo "source ~/mybot_ws/devel/setup.bash" >> ~/.bashrc
 roslaunch mybot_gazebo mybot_world.launch 
 ``
 
-3.O. You can map the enviroment making mybot to follow the yellow line (the world you simulate must have a yellow line (lfm1.world)) or using teleop. In the first case run
+3. You can map the enviroment making mybot to follow the yellow line (the world you simulate must have a yellow line (lfm1.world)) or using teleop. 
+
+  - In the first case run
 
 ``
 roslaunch mybot_navigation gmapping_demo_line.launch
 ``
 
-3. To start mapping using teleop we will execute a launch file. This line will save the sensor data located in the robot, in this case the robot uses a *Hokuyo laser* 
+  - To start mapping using teleop we will execute a launch file. This line will save the sensor data located in the robot, in this case the robot uses a *Hokuyo laser* 
 
 ``
 roslaunch mybot_navigation gmapping_demo.launch
