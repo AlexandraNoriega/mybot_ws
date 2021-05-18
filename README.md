@@ -71,28 +71,26 @@ roslaunch mybot_navigation mybot_teleop.launch
 ``
 rosrun map_server map_saver -f ~/mybot_ws/src/mybot_navigation/maps/<archive_name>
 ``
-
-The SLAM section describes how the saved map can be used. 
+The job is done, now we can kill all processes and proceed with slam. 
 
 **SLAM**
 
 We can open the saved maps following the next steps:
 
-1. Kill all active processes.
-2. Edit the map_file. You might open **mybot_navigation/launch/amcl_demo.launch**, get on the sixth line and modify the path changing it for that one choosen in the previous step.
-4. Run gazebo for looking the robot at the selected world
+1. Edit the map_file. You might open **mybot_navigation/launch/amcl_demo.launch**, get on the sixth line and modify the path changing it for that one choosen in the previous step.
+2. Run gazebo for looking the robot at the selected world
 
 ``
 roslaunch mybot_gazebo mybot_world.launch 
 ``
 
-5. Load the created map.
+3. Load the created map.
 
 ``
 roslaunch mybot_navigation amcl_demo.launch 
 ``
 
-6. As execution steps, we are going to visualize the map with rviz and this program will help us to interact with robot movement
+4. As execution steps, we are going to visualize the map with rviz and this program will help us to interact with robot movement
 
 ``
 roslaunch mybot_description mybot_rviz_amcl.launch
