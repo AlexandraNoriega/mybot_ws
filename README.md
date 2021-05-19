@@ -102,8 +102,8 @@ Now you can distribute the screen between the gazebo and rviz to improve the vis
 
 If you want to change the world, you can:
 
--Use a gazebo world installed 
--Use a gazebo world owned
+- Use a gazebo world installed 
+- Use a gazebo world owned
 
 If you choose the second note that you need one file <world_name>.world and one file <world_name>.launch and a third one (model folder) ir the world has models not included at gazebo. You need to copy that file in the following paths
 
