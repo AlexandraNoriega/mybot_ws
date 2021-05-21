@@ -1,0 +1,28 @@
+<launch>
+<!-- Set recording to false at the beginning  -->
+<arg name = "StartRec" default = "false" />
+<!-- Turtlebot is launched but world_file is set to the desired World-->
+<include 
+file = "$(find turtlebot_gazebo)/launch/turtlebot_world.launch">
+<arg name = "world_file" value =  "$(find line_follower_turtlebot)/Maps/Houseprueba.world"/>
+</include>
+
+<!-- Detection node. Receives information from turtlebot camera sensor and publishes a message for the robot direction instructions-->
+<node pkg="line_follower_turtlebot" name="detection" type="detect" cwd="node" output="screen">
+</node>
+
+<!-- Robot commands node. Receives the message published in Detection node, and according to its value, it will publish linear and angular velocity values to the turtlebot robot -->
+<node pkg="line_follower_turtlebot" name="Velocity" type="navig" cwd="node" output="screen">
+</node>
+<!-- Record Node allows camera from gazebo robot to be captured-->
+<node
+pkg = "rosbag"
+type = "record"
+name = "rosbag_record_all"
+respawn = "true"
+output = "screen"
+args = "-a -O BagFile -x /camera/(.*) "
+if = "$(arg StartRec)"
+/>
+
+</launch>
