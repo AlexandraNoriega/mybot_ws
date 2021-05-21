@@ -21,6 +21,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *@author Sudarshan Raghunathan
  *@brief  Ros Nod to subscribe to turtlebot images and perform image processing to detect line
  */
+
+// First, some libraries are included.
 #include <cv_bridge/cv_bridge.h>
 #include <cstdlib>
 #include <string>
@@ -29,7 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ros/ros.h"
 #include "ros/console.h"
 #include "linedetect.hpp"
-#include "line_follower/pos.h"
+#include "line_follower_turtlebot/pos.h"
+
 
 /**
  *@brief Main function that reads image from the turtlebot and provides direction to move using image processing
@@ -44,18 +47,19 @@ int main(int argc, char **argv) {
     ros::NodeHandle n;
     LineDetect det;
     // Creating Publisher and subscriber
+    // Subscribed to "/camera/rgb/image_raw", which is the topic which sends information about the turtlebot camera sensor 
     ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw",
         1, &LineDetect::imageCallback, &det);
-
+    // It publishes "direction", a value that indicates next robot movement.
     ros::Publisher dirPub = n.advertise<
-    line_follower::pos>("direction", 1);
-        line_follower::pos msg;
+    line_follower_turtlebot::pos>("direction", 1);
+        line_follower_turtlebot::pos msg; //This is the variable that will be published.
 
     while (ros::ok()) {
         if (!det.img.empty()) {
             // Perform image processing
-            det.img_filt = det.Gauss(det.img);
-            msg.direction = det.colorthresh(det.img_filt);
+            det.img_filt = det.Gauss(det.img); // this function is declared in linedetect.cpp
+            msg.direction = det.colorthresh(det.img_filt);// this function is declared in linedetect.cpp
             // Publish direction message
             dirPub.publish(msg);
             }
