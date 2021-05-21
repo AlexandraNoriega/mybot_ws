@@ -29,10 +29,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ros/ros.h"
 #include "opencv2/opencv.hpp"
 #include "ros/console.h"
-#include "line_follower/pos.h"
+#include "line_follower_turtlebot/pos.h"
 
+// Creating a bridge between OpenCV and ROS..
 void LineDetect::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
   cv_bridge::CvImagePtr cv_ptr;
+  //input data is copied and converted to a BGR8 image, then it is saved in "img"
   try {
     cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     img = cv_ptr->image;
@@ -43,6 +45,7 @@ void LineDetect::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
   }
 }
 
+//The next function applies a Gaussian filter, and it is used in detect.cpp
 cv::Mat LineDetect::Gauss(cv::Mat input) {
   cv::Mat output;
 // Applying Gaussian Filter
@@ -50,20 +53,26 @@ cv::Mat LineDetect::Gauss(cv::Mat input) {
   return output;
 }
 
+/**
+In the following function, limits are applied to define the possible range of colors that can be cataloged as the color of the tracking line.
+Once the line is defined, its contour is detected and the centroid detection of line is calculated. 
+*/
 int LineDetect::colorthresh(cv::Mat input) {
   // Initializaing variables
-  cv::Size s = input.size();
+  cv::Size s = input.size(); //Size of image
   std::vector<std::vector<cv::Point> > v;
   auto w = s.width;
   auto h = s.height;
   auto c_x = 0.0;
   // Detect all objects within the HSV range
   cv::cvtColor(input, LineDetect::img_hsv, CV_BGR2HSV);
-  LineDetect::LowerYellow = {20, 100, 100};
-  LineDetect::UpperYellow = {30, 255, 255};
+  LineDetect::LowerYellow = {20, 100, 100}; //Lower RGB value limit
+  LineDetect::UpperYellow = {30, 255, 255}; //Upper RGB value limit
   cv::inRange(LineDetect::img_hsv, LowerYellow,
    UpperYellow, LineDetect::img_mask);
   img_mask(cv::Rect(0, 0, w, 0.8*h)) = 0;
+
+  
   // Find contours for better visualization
   cv::findContours(LineDetect::img_mask, v, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
   // If contours exist add a bounding
