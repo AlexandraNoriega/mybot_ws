@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ros/ros.h"
 #include "ros/console.h"
 #include "turtlebot.hpp"
-#include "line_follower/pos.h"
+#include "line_follower_turtlebot/pos.h"
 
 
 /**
@@ -38,22 +38,27 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@param argv is the array of arugments
 *@return 0
 */
+
+
 int main(int argc, char **argv) {
-    // Initializing node and object
+    // Initializing node "Velocity" and objects
     ros::init(argc, argv, "Velocity");
     ros::NodeHandle n;
     turtlebot bot;
-    geometry_msgs::Twist velocity;
-    // Creating subscriber and publisher
+    geometry_msgs::Twist velocity; // This expresses velocity in free space broken into its linear and angular parts.
+    
+    // Creating subscriber "sub" and publisher "pub"
     ros::Subscriber sub = n.subscribe("/direction",
-        1, &turtlebot::dir_sub, &bot);
+        1, &turtlebot::dir_sub, &bot); // turtlebot::dir_sub is declared in turtlebot.cpp
+
     ros::Publisher pub = n.advertise<geometry_msgs::Twist>
         ("/cmd_vel_mux/input/teleop", 10);
+
     ros::Rate rate(10);
     while (ros::ok()) {
         ros::spinOnce();
         // Publish velocity commands to turtlebot
-        bot.vel_cmd(velocity, pub, rate);
+        bot.vel_cmd(velocity, pub, rate); // this function is declared in turtlebot.cpp
         rate.sleep();
     }
     return 0;
