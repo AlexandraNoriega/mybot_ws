@@ -27,36 +27,41 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ros/ros.h"
 #include "ros/console.h"
 #include "turtlebot.hpp"
-#include "line_follower/pos.h"
+#include "line_follower_turtlebot/pos.h"
 
-void turtlebot::dir_sub(line_follower::pos msg) {
+//Acquires the msg.direction from "direction" topic and saves it into "turtlebot::dir"
+void turtlebot::dir_sub(line_follower_turtlebot::pos msg) {
     turtlebot::dir = msg.direction;
 }
+/**
+According to the value of "dir" the linear robot velocity in x axis and angular velocity in z axis will change
+These velocity values are published through the node, publisher and rate stablished in motion_node.cpp
+*/
 void turtlebot::vel_cmd(geometry_msgs::Twist &velocity,
  ros::Publisher &pub, ros::Rate &rate) {
     // If direction is left
     if (turtlebot::dir == 0) {
-        velocity.linear.x = 0.1;
-        velocity.angular.z = 0.15;
+        velocity.linear.x = 0.0;
+        velocity.angular.z = 0.1;
         pub.publish(velocity);
         rate.sleep();
-        ROS_INFO_STREAM("Turning Left");
+        ROS_INFO_STREAM("Giro izquierdo");
     }
     // If direction is straight
     if (turtlebot::dir == 1) {
-        velocity.linear.x = 0.15;
+        velocity.linear.x = 0.4;
         velocity.angular.z = 0;
         pub.publish(velocity);
         rate.sleep();
-        ROS_INFO_STREAM("Straight");
+        ROS_INFO_STREAM("Linea recta");
     }
     // If direction is right
     if (turtlebot::dir == 2) {
-        velocity.linear.x = 0.1;
-        velocity.angular.z = -0.15;
+        velocity.linear.x = 0.0;
+        velocity.angular.z = -0.1;
         pub.publish(velocity);
         rate.sleep();
-        ROS_INFO_STREAM("Turning Right");
+        ROS_INFO_STREAM("Giro derecho");
     }
     // If robot has to search
     if (turtlebot::dir == 3) {
@@ -64,6 +69,6 @@ void turtlebot::vel_cmd(geometry_msgs::Twist &velocity,
         velocity.angular.z = 0.25;
         pub.publish(velocity);
         rate.sleep();
-        ROS_INFO_STREAM("Searching");
+        ROS_INFO_STREAM("Buscando");
     }
 }
