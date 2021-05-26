@@ -37,10 +37,11 @@
     <param name="move_base/DWAPlannerROS/yaw_goal_tolerance" value="1.0"/>
     <param name="move_base/DWAPlannerROS/xy_goal_tolerance" value="1.0"/>
 
-
-
   </node>
 
+   <!--move to goal-->
+  <node name="map_navigation" pkg="mybot_navigation" type="map_navigation.py" output="screen">
+	</node>
 
 </launch>
 
