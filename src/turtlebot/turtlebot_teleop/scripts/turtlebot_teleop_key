@@ -29,6 +29,8 @@
 
 import rospy
 
+from nav_msgs.msg import Odometry
+
 from geometry_msgs.msg import Twist
 
 import sys, select, termios, tty
@@ -45,6 +47,7 @@ q/z : increase/decrease max speeds by 10%
 w/x : increase/decrease only linear speed by 10%
 e/c : increase/decrease only angular speed by 10%
 space key, k : force stop
+a : save pose
 anything else : stop smoothly
 
 CTRL-C to quit
@@ -71,10 +74,18 @@ speedBindings={
           }
 
 def getKey():
+    global pose
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
     if rlist:
         key = sys.stdin.read(1)
+	if key == 'a':
+	    print(pose)
+	    #abrimos el archivo y escribimos al final. Una vez sale del with se cierra
+    	    with open("/home/amy/mybot_ws/src/mybot_navigation/casa", "a") as log:
+                log.write(";{0}\n".format(str(pose)))
+
+	    key = ''
     else:
         key = ''
 
@@ -87,11 +98,16 @@ turn = 1
 def vels(speed,turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
+def callback(msg):
+    global pose
+    pose=msg.pose.pose
+
 if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
     
     rospy.init_node('turtlebot_teleop')
     pub = rospy.Publisher('~cmd_vel', Twist, queue_size=5)
+    odom_sub = rospy.Subscriber('/odom', Odometry, callback)
 
     x = 0
     th = 0
@@ -169,4 +185,3 @@ if __name__=="__main__":
         pub.publish(twist)
 
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
-
