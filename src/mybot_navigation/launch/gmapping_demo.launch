@@ -10,7 +10,8 @@
     <param name="ymin" value="-20"/>
     <param name="ymax" value="20"/>
     <remap from="scan" to="mybot/laser/scan"/>
-    <param name="base_frame" value="chassis" />
+    <!--param name="base_frame" value="chassis" /-->
+    <param name="base_frame" value="square_base" />
 
     <param name="linearUpdate" value="0.5"/>
     <param name="angularUpdate" value="0.436"/>
@@ -19,5 +20,11 @@
     <param name="particles" value="80"/>
 
   </node>
+
+  <!-- launch rviz application with the model -->
+  <include file="$(find mybot_description)/launch/mybot_rviz_gmapping.launch"/>
+
+  <!-- launch mybot_teleop -->
+  <include file="$(find mybot_navigation)/launch/mybot_teleop.launch"/>
 
 </launch>
