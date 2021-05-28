@@ -3,7 +3,7 @@
   <master auto="start"/>
 
   <!-- Map server -->
-  <arg name="map_file" default="$(find mybot_navigation)/maps/slam_garage1.yaml"/>
+  <arg name="map_file" default="$(find mybot_navigation)/maps/test_apartment.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!-- Place map frame at odometry frame -->
@@ -15,7 +15,7 @@
     <remap from="scan" to="mybot/laser/scan"/>
     <param name="odom_frame_id" value="odom"/>
     <param name="odom_model_type" value="diff-corrected"/>
-    <param name="base_frame_id" value="chassis"/>
+    <param name="base_frame_id" value="square_base"/>
     <param name="update_min_d" value="0.5"/>
     <param name="update_min_a" value="1.0"/>
   </node>
@@ -31,7 +31,7 @@
     <rosparam file="$(find mybot_navigation)/config/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find mybot_navigation)/config/base_local_planner_params.yaml" command="load" />
     
-    <remap from="cmd_vel" to="cmd_vel"/>
+    <!--remap from="cmd_vel" to="cmd_vel"/-->
     <remap from="odom" to="odom"/>
     <remap from="scan" to="mybot/laser/scan"/>
     <param name="move_base/DWAPlannerROS/yaw_goal_tolerance" value="1.0"/>
@@ -39,10 +39,9 @@
 
   </node>
 
-   <!--move to goal-->
+  <!--move to goal-->
   <node name="map_navigation" pkg="mybot_navigation" type="map_navigation.py" output="screen">
 	</node>
 
 </launch>
-
 
