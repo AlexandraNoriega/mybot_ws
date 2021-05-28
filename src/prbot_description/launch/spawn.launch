@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding="UTF-8" ?>
+<launch>
+  <!-- adjust the param to open the desired URDF model -->
+  <param name="robot_description"
+    command="$(find xacro)/xacro --inorder '$(find prbot_description)/urdf/robot.xacro'"/>
+
+  <!-- adjust the position where the robot will appear -->
+  <arg name="x" default="0"/>
+  <arg name="y" default="0"/>
+  <arg name="z" default="0.5"/>
+
+  <!--launch the node to open the URDF model-->
+  <node name="prbot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+    args="-urdf -param robot_description -model prbot -x $(arg x) -y $(arg y) -z $(arg z)"/>
+
+  <!-- launch the apartament world inside the current gazebo -->
+  <include file="$(find prbot_simulation)/launch/aptworld.launch"/>
+  <!-- launch rviz application with the model -->
+  <include file="$(find prbot_description)/launch/rviz_launch.launch"/>
+</launch>
